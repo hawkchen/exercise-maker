@@ -1,0 +1,15 @@
+<zk>
+	<!-- TODO, 2-2, apply a viewmodel, a hint separate by a comma -->
+	<vlayout style="padding: 50px"
+		viewModel="@id('vm')@init('org.zkoss.training.mvvm.org.zkoss.training.HelloVM')">
+		<!-- TODO, 2-2, a command binding -->
+		<button label="say hello"
+				onClick="@command('hello')"
+		/>
+		<label value="@load(vm.hello)"/>
+		<separator bar="true"/>
+		enter a name and show "hello [name]" 
+		<textbox value="@save(vm.name)"/>
+		<label value="@load(vm.name)"/>
+	</vlayout>
+</zk>

@@ -1,0 +1,9 @@
+.box{
+	border: 1px solid black;
+	text-align:center;
+}
+
+/* TODO, 3, add padding 15px*/
+.box-padding{
+	padding: 15px;
+}
