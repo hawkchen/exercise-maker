@@ -21,8 +21,6 @@ public class ExcerciseMakerMojo extends AbstractMojo {
     private File outputDirectory;
     private String version = "1.0";
 
-    static final String TODO = "TODO"; //a starting keyword
-
     public void execute() throws MojoExecutionException {
         outputDirectory.mkdirs();
         LinkedList<File> directoryQueue = new LinkedList<File>();
@@ -45,7 +43,7 @@ public class ExcerciseMakerMojo extends AbstractMojo {
     }
 
     /**
-     *always overwrite existing exercise files
+     * always overwrite existing exercise files
      * @param sourceFile a file that might contain an exercise mark
      * @throws FileNotFoundException
      * @throws IOException
@@ -54,27 +52,27 @@ public class ExcerciseMakerMojo extends AbstractMojo {
         getLog().debug("processing " + sourceFile.getAbsolutePath());
         //find the marker
         BufferedReader reader = new BufferedReader(new FileReader(sourceFile));
-        StringBuilder exerciseContentBuffer = new StringBuilder();
+        StringBuilder exerciseFileBuffer = new StringBuilder();
         String line = null;
         boolean anyMarkExisted = false; //if false, ignore a file without any mark
         while ((line = reader.readLine()) != null) {
             try {
-                exerciseContentBuffer.append(line + System.lineSeparator()); //readLine() doesn't include a line separator
-                if (isValidMark(line)) {
+                exerciseFileBuffer.append(line + System.lineSeparator()); //readLine() doesn't include a line separator
+                if (ExerciseMark.isValidMark(line)) {
                     anyMarkExisted = true;
-                    removeLinesUponMark(reader, exerciseContentBuffer, line);
+                    removeLinesUponMark(reader, exerciseFileBuffer, line);
                 }
             }catch (Exception e){
                 //ignore any syntax error in marker
-                getLog().warn("marker parsing error in "+ sourceFile.getName()+" for "+e.getMessage());
+                getLog().warn("exercise mark parsing error in "+ sourceFile.getName()+" for "+e.getMessage());
             }
         }
-        exerciseContentBuffer.deleteCharAt(exerciseContentBuffer.length()-1); //delete the last line separator
+        exerciseFileBuffer.deleteCharAt(exerciseFileBuffer.length()-1); //delete the last line separator
         reader.close();
 
         if (anyMarkExisted) {
-            getLog().info("found TODO marker in " + sourceFile.getAbsolutePath());
-            writeExerciseFile(sourceFile, exerciseContentBuffer);
+            getLog().info("found exercise mark in " + sourceFile.getAbsolutePath());
+            writeExerciseFile(sourceFile, exerciseFileBuffer);
         }
      }
 
@@ -91,53 +89,17 @@ public class ExcerciseMakerMojo extends AbstractMojo {
         writer.close();
     }
 
-    private void removeLinesUponMark(BufferedReader reader, StringBuilder exerciseContentBuffer, String line) throws IOException {
-        LineRange lineRange = getLineRange(line.split(",")[1]);
+    private void removeLinesUponMark(BufferedReader reader, StringBuilder exerciseFileBuffer, String exerciseMarkString) throws IOException {
+        ExerciseMark exerciseMark = ExerciseMark.parse(exerciseMarkString);
         int lineNumber = 1;
         String lineToDel = null;
-        while ( lineNumber <= lineRange.getEnd() && (lineToDel = reader.readLine()) != null) {
-            if (lineNumber >= lineRange.getStart()) { //drop this line
+        while ( lineNumber <= exerciseMark.getEnd() && (lineToDel = reader.readLine()) != null) {
+            if (lineNumber >= exerciseMark.getStart()) { //drop this line
                 getLog().debug("remove " + lineToDel);
             } else {
-                exerciseContentBuffer.append(lineToDel + System.lineSeparator());
+                exerciseFileBuffer.append(lineToDel + System.lineSeparator());
             }
             lineNumber++;
-        }
-    }
-
-    private boolean isValidMark(String line){
-        return line.contains(TODO) //case sensitive
-                && line.split(",").length >= 3; //a hint might contain a comma
-    }
-
-    private LineRange getLineRange(String rangeString) {
-        String range[] = rangeString.trim().split("-");
-        if (range.length == 2){ //a range
-            return new LineRange(Integer.parseInt(range[0].trim()), Integer.parseInt(range[1].trim()));
-        }else{
-            return new LineRange(Integer.parseInt(rangeString.trim()));
-        }
-    }
-
-    class LineRange {
-        private int start = 1;
-        private int end = 1;
-
-        LineRange(int end){
-            this.end = end;
-        }
-
-        LineRange(int start, int end) {
-            this.start = start;
-            this.end = end;
-        }
-
-        public int getStart() {
-            return start;
-        }
-
-        public int getEnd() {
-            return end;
         }
     }
 
