@@ -1,5 +1,5 @@
 # Exercise Maker Introduction
-a maven plugin that **produces the corresponding exercise files based on the source project** in a training project for training attendees. So that when we modify an example file slightly in the future, we don't have to create the corresponding exercise file again manually.
+a maven plugin that **produces the corresponding exercise files based on the source project**. It removes some lines according to specific marks written in the comments to produce the exercise files. So that when we modify an example file slightly in the future, we don't have to create the corresponding exercise file again manually.
 
 ![](images/concept.png)
 
