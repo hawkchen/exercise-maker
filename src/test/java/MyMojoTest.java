@@ -1,3 +1,4 @@
+import org.apache.maven.plugin.MavenPluginManager;
 import org.apache.maven.plugin.testing.MojoRule;
 import org.junit.*;
 import org.zkoss.training.ExcerciseMakerMojo;
@@ -7,9 +8,10 @@ import java.io.*;
 /**
  * http://maven.apache.org/components/plugin-testing/maven-plugin-testing-harness/getting-started/index.html
  */
-public class MyMojoTest {
+public class MyMojoTest{
     public static final String SRC_TEST_POM_XML = "src/test/pom.xml";
 
+    //a wrapper for an embedded {@link AbstractMojoTestCase}
     @Rule
     public MojoRule rule = new MojoRule() {
         @Override
@@ -90,7 +92,8 @@ public class MyMojoTest {
 
 
     /**
-     * test default path
+     * test parameter default value.
+     * MojoRule.lookupConfiguredMojo() returns a ExcerciseMakerMojo filled with default values.
      * @throws Exception
      */
     @Test
