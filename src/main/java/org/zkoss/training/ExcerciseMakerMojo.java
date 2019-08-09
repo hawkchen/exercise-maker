@@ -15,13 +15,23 @@ public class ExcerciseMakerMojo extends AbstractMojo {
     public static final String EXERCISE_OUTPUT_PATH = "/src/exercise";
     public static final String DEFAULT_GOAL = "make";
 
+    /**
+     * source folder to be processed
+     */
     @Parameter(defaultValue = "${project.basedir}" + "/src/main", property = "sourceDirectory", required = true)
     private File sourceDirectory;
+    
+    /**
+     * the folder to store resulting files for exercise
+     */
     @Parameter(defaultValue = "${project.basedir}" + EXERCISE_OUTPUT_PATH, property = "outputDirectory", required = true)
     private File outputDirectory;
+
     private String version = "1.0";
 
     public void execute() throws MojoExecutionException {
+        getLog().info("process " + sourceDirectory.toString());
+        getLog().info("output to " + outputDirectory.toString());
         outputDirectory.mkdirs();
         LinkedList<File> directoryQueue = new LinkedList<File>();
         directoryQueue.add(sourceDirectory);

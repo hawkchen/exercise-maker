@@ -1,9 +1,11 @@
 # Exercise Maker Introduction
-a maven plugin that **produces the corresponding exercise files based on the example files** in a training project for training attendees. So that when we modify an example file slightly in the future, we don't have to create the corresponding exercise file again manually.
+a maven plugin that **produces the corresponding exercise files based on the source project** in a training project for training attendees. So that when we modify an example file slightly in the future, we don't have to create the corresponding exercise file again manually.
+
+![](images/concept.png)
 
 
 # Turn Your Training Project into an Exercise Project
-According to psychology study, you just can remember 30% of what you hear. But you can remember 60% of what you do. When I give a training to trainees, I will give them an exercise project that contains incomplete codes and request them to complete the code during a training. For Example, this is my original code:
+According to psychology study, people just can remember 30% of what they hear. But people can remember 60% of what they do. When I give a training to trainees, I will give them an exercise project that contains incomplete codes and request them to complete the code during a training. For Example, this is my original code:
 
 ```java
 public class HelloVM {
@@ -23,7 +25,7 @@ public class HelloVM {
 	
 ```
 
-If I have to create these exercise files manually, it's hard to maintain when I modify my original code in the future. So I need a way to automatically produce the exercise files.
+If I have to create these exercise files manually, it's hard to maintain when the original code changes in the future. So I need a way to automatically produce the exercise files.
 
 
 
@@ -60,18 +62,17 @@ the plugin ignores invalid marks
 Put exercise mark inside a comment line to specify a block to be removed for exercises
 
 ## zul
-`<!-- TODO, [EXERCISE RANGE], [IGNORED, exercise hint] -->`
+`<!-- TODO, 5, add a button -->`
 
 ## java
-`// TODO, [EXERCISE RANGE], [IGNORED, exercise hint]`
+`// TODO, 8, implement a feature`
 
- 
-`[IGNORED]`
-1. the plugin ignores this segment and doesn't process it
-2. we can write a hint for readers for the answer.
 
 # Run Test Cases
 Install exercise-maker into your local repository before running test cases.
 
 # Plugin Usage
-Check /src/test/pom.xml 
+Check /src/test/pom.xml
+
+# Reference
+[Plugin Developers Centre](https://maven.apache.org/plugin-developers/index.html) 
