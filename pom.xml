@@ -39,11 +39,13 @@
             <artifactId>maven-model</artifactId>
             <version>${maven.version}</version>
         </dependency>
+        <!--https://maven.apache.org/plugin-tools/maven-plugin-plugin/examples/using-annotations.html#POM_configuration-->
         <dependency>
             <groupId>org.apache.maven.plugin-tools</groupId>
             <artifactId>maven-plugin-annotations</artifactId>
-            <version>3.5</version>
+            <version>3.6.0</version>
             <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.codehaus.plexus</groupId>
@@ -76,30 +78,13 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-plugin-plugin</artifactId>
-                <version>3.5</version>
-                <configuration>
-                    <goalPrefix>exercise-maker</goalPrefix>
-                    <skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
-                </configuration>
+                <version>3.6.0</version>
                 <executions>
                     <execution>
-                        <id>mojo-descriptor</id>
-                        <goals>
-                            <goal>descriptor</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>help-goal</id>
-                        <goals>
-                            <goal>helpmojo</goal>
-                        </goals>
+                        <id>default-descriptor</id>
+                        <phase>process-classes</phase>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.zkoss.training</groupId>
-                <artifactId>exercise-maker</artifactId>
-                <version>1.0</version>
             </plugin>
         </plugins>
     </build>
