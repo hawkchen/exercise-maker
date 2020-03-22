@@ -1,14 +1,13 @@
 package org.zkoss.training;
 
 import org.apache.maven.plugin.*;
-import org.apache.maven.plugins.annotations.*;
 import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.*;
 
-import java.io.*;
-import java.util.LinkedList;
+import java.io.File;
 
 /**
- * make (default): make exercise files
+ * make (default goal): make exercise files
  */
 @Mojo(name = ExcerciseMakerMojo.DEFAULT_GOAL, defaultPhase = LifecyclePhase.PROCESS_SOURCES)
 public class ExcerciseMakerMojo extends AbstractMojo {
@@ -27,7 +26,7 @@ public class ExcerciseMakerMojo extends AbstractMojo {
     @Parameter(defaultValue = "${project.basedir}" + EXERCISE_OUTPUT_PATH, property = "outputDirectory", required = true)
     private File outputDirectory;
 
-    private String version = "1.0";
+    private String version = "1.0.0";
 
     public void execute() throws MojoExecutionException {
         getLog().info("process " + sourceDirectory.toString());
