@@ -4,7 +4,7 @@ a maven plugin that **produces the corresponding exercise files based on the sou
 ![](images/concept.png)
 
 
-# Turn Your Training Project into an Exercise Project
+# Turn Your Training/Example Project into an Exercise Project
 According to psychology study, people just can remember 30% of what they hear. But people can remember 60% of what they do. When I give a training to trainees, I will give them an exercise project that contains incomplete codes and request them to complete the code during a training. For Example, this is my original code:
 
 ```java
@@ -68,11 +68,35 @@ Put exercise mark inside a comment line to specify a block to be removed for exe
 `// TODO, 8, implement a feature`
 
 
-# Run Test Cases
-Install exercise-maker into your local repository before running test cases.
-
 # Plugin Usage
 Check /src/test/pom.xml
 
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.zkoss.training</groupId>
+            <artifactId>exercise-maker</artifactId>
+            <version>1.0.0</version>
+            <!-- optional, here are default paths:
+            <configuration>
+                <sourceDirectory>src/test/</sourceDirectory>
+                <outputDirectory>src/exercise/</outputDirectory>
+            </configuration>
+            -->
+        </plugin>
+    </plugins>
+</build>
+```
+* The default goal is `make`
+* The default phase is `process-sources"` 
+
+# Run Test Cases
+Install exercise-maker into the local repository before running test cases.
+
+
 # Reference
 [Plugin Developers Centre](https://maven.apache.org/plugin-developers/index.html) 
+
+# Publish
+[jenkins2/Maven_update/PBFUM/](http://jenkins2/view/Maven_update/job/PBFUM/)

@@ -1,5 +1,8 @@
 package org.zkoss.training;
 
+/**
+ * the parsing result of a exercise mark line e.g. // TODO, 8, implement a feature
+ */
 public class ExerciseMark {
     static final String TODO = "TODO"; //a starting keyword
     protected int start = 1;
