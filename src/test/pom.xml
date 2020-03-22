@@ -24,7 +24,7 @@
 			<plugin>
 				<groupId>org.zkoss.training</groupId>
 				<artifactId>exercise-maker</artifactId>
-				<version>1.0</version>
+				<version>1.0.0</version>
 				<configuration>
 					<sourceDirectory>src/test/</sourceDirectory>
 					<outputDirectory>src/exercise/</outputDirectory>
