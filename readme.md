@@ -97,6 +97,16 @@ Put exercise mark inside a comment line to specify a block to be removed for exe
 # Plugin Usage
 Check /src/test/pom.xml
 
+* setup the repository
+```xml
+    <repository>
+        <id>ZK CE</id>
+        <name>ZK CE Repository</name>
+        <url>https://mavensync.zkoss.org/maven2</url>
+    </repository>
+```
+
+* configure the plugin
 ```xml
 <build>
     <plugins>
