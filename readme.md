@@ -1,11 +1,5 @@
-# Exercise Maker Introduction
-A maven plugin that **produces the corresponding exercise files based on the source project**. It removes some lines according to specific marks written in the comments to produce the exercise files. So that when we modify an example file slightly in the future, we don't have to create the corresponding exercise file again manually.
-
-![](images/concept.png)
-
-
-# Turn Your Training/Example Project into an Exercise Project
-According to psychology study, people just can remember 30% of what they hear but 60% of what they do. When I give a training to trainees, I will give them an exercise project that contains **incomplete** codes and request them to complete the code during a training. For example, this is my original code:
+# Turn Your Code into a Code to Exercise
+According to psychology study, people just can remember 30% of what they hear but 60% of what they do. When I give a training to trainees, I will give them an exercise project that contains **incomplete** codes and request them to complete the code during the training. For example, this is my original code:
 
 ```java
 public class HelloVM {
@@ -16,7 +10,7 @@ public class HelloVM {
 }
 ```
 
-Then I will create an exercise file by removing several lines, and trainees have to implement by themselves. The exercise file looks like:
+Then I will create an exercise file by removing several lines, and trainees have to implement those missing code as an exercise. The exercise file looks like:
 
 ```java
 public class HelloVM {
@@ -25,7 +19,13 @@ public class HelloVM {
 	
 ```
 
-If I have to create these exercise files manually, it's hard to maintain when the original example code changes in the future. So I need a way to automatically produce the exercise files based on the original file. This plugin helps me do it. 
+If I have to create these exercise files by manually removing lines, it's a burden to maintain the exercise files when the original example code changes in the future. So I need a tool to automatically produce the exercise files based on the original file. This plugin helps me do it.
+
+
+# Exercise Maker Introduction
+A maven plugin that **produces the corresponding exercise files based on the source project**. It removes some lines according to specific marks written in the comments to produce the exercise files. So that when we modify an example file slightly in the future, we don't have to create the corresponding exercise file again manually.
+
+![](images/concept.png)
 
 ## Exercise mark
 With this plugin, I can leave a special format comment (starting with `TODO`) like:
@@ -42,7 +42,7 @@ public class HelloVM {
 }
 ```
 
-Then, this plugin will remove the next 3 lines after the comment which is just the method `hello()`. So the produced file is:
+Then, this plugin will remove the next 3 lines after the exercise mark which is just the method `hello()`. So the produced file is:
 
 ```java
 public class HelloVM {
@@ -53,7 +53,11 @@ public class HelloVM {
 }
 ```
 
-Then this source becomes a file for exercise. Training attendees can implement the missing code by themselves. 
+Then this source becomes a file for exercise. Training attendees can implement the missing code by themselves.
+
+
+
+
 
 # Feature
 * Put **exercise mark** inside a comment line of a source code (including  zul, java, css, javascript) to produce the corresponding file for the exercise by removing the specified lines below the **exercise mark**, e.g.
@@ -116,7 +120,7 @@ Check /src/test/pom.xml
             <version>1.0.0</version>
             <!-- optional, here are default paths:
             <configuration>
-                <sourceDirectory>src/test/</sourceDirectory>
+                <sourceDirectory>src/main/</sourceDirectory>
                 <outputDirectory>src/exercise/</outputDirectory>
             </configuration>
             -->
@@ -125,7 +129,7 @@ Check /src/test/pom.xml
 </build>
 ```
 * The default goal is `make`
-* The default phase is `process-sources"` 
+* The default phase is `process-sources` 
 
 # Run Test Cases
 Install exercise-maker into the local repository before running test cases.
@@ -148,5 +152,3 @@ For example:
 -->
 ```
 It can't remove the 1st and 3rd line.
-
-```
